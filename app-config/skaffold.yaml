@@ -15,12 +15,12 @@ profiles:
   - name: test
     manifests:
       rawYaml:
-        - hello-app-test.yaml
+        - test.yaml
   - name: staging
     manifests:
       rawYaml:
-        - hello-app-staging.yaml
+        - staging.yaml
   - name: prod
     manifests:
       rawYaml:
-        - hello-app-prod.yaml
+        - prod.yaml
