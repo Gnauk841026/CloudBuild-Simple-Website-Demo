@@ -17,18 +17,41 @@ steps:
     gcloud deploy apply --file=target-prod.yaml --region=asia-east1
 - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
   entrypoint: 'gcloud'
-  args: 
-    - 'run'
-    - 'deploy'
-    - 'your-service-name'
-    - '--image'
-    - 'asia-east1-docker.pkg.dev/terraform-429505/my-registry/hello-js'
-    - '--region'
-    - 'asia-east1'
-    - '--platform'
-    - 'managed'
-  env:
-  - 'GOOGLE_CLOUD_PROJECT=terraform-429505'
+  args:
+  - 'deploy'
+  - 'releases'
+  - 'create'
+  - 'release-${SHORT_SHA}'
+  - '--delivery-pipeline=hello-js'
+  - '--region=asia-east1'
+  - '--annotations=commitId=${REVISION_ID}'
+  - '--images=hello-js=asia-east1-docker.pkg.dev/terraform-429505/my-registry/hello-js:${SHORT_SHA}'
+
+# 部署到測試環境
+- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+  entrypoint: 'gcloud'
+  args:
+  - 'deploy'
+  - 'releases'
+  - 'promote'
+  - '--release=release-${SHORT_SHA}'
+  - '--delivery-pipeline=hello-js'
+  - '--region=asia-east1'
+  - '--to-target=test-cloudrun'
+# - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+#   entrypoint: 'gcloud'
+#   args: 
+#     - 'run'
+#     - 'deploy'
+#     - 'your-service-name'
+#     - '--image'
+#     - 'asia-east1-docker.pkg.dev/terraform-429505/my-registry/hello-js'
+#     - '--region'
+#     - 'asia-east1'
+#     - '--platform'
+#     - 'managed'
+#   env:
+#   - 'GOOGLE_CLOUD_PROJECT=terraform-429505'
 # - name: 'gcr.io/k8s-skaffold/skaffold:latest'
 #   entrypoint: 'skaffold'
 #   dir: 'app-config'
