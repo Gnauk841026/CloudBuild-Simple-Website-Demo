@@ -1,7 +1,7 @@
 apiVersion: serving.knative.dev/v1
 kind: Service
 metadata:
-  name: hello-app-test
+  name: hello-js-test
 spec:
   template:
     metadata:
@@ -10,8 +10,8 @@ spec:
     spec:
       serviceAccountName: cd-tut-run-sa@terraform-429505.iam.gserviceaccount.com
       containers:
-      - name: hello-app
-        image: hello-app
+      - name: hello-js
+        image: asia-east1-docker.pkg.dev/terraform-429505/my-registry/hello-js
         env:
           - name: NAME
             value: "Test"
