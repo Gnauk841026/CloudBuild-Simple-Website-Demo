@@ -15,17 +15,17 @@ steps:
     gcloud deploy apply --file=target-test.yaml --region=asia-east1
     gcloud deploy apply --file=target-staging.yaml --region=asia-east1
     gcloud deploy apply --file=target-prod.yaml --region=asia-east1
-- name: 'gcr.io/cloud-builders/skaffold'
+- name: 'gcr.io/k8s-skaffold/skaffold:latest'
   dir: 'app-config'
   args: ['deploy', '-p', 'test']
   env:
   - 'GOOGLE_CLOUD_PROJECT=terraform-429505'
-- name: 'gcr.io/cloud-builders/skaffold'
+- name: 'gcr.io/k8s-skaffold/skaffold:latest'
   dir: 'app-config'
   args: ['deploy', '-p', 'staging']
   env:
   - 'GOOGLE_CLOUD_PROJECT=terraform-429505'
-- name: 'gcr.io/cloud-builders/skaffold'
+- name: 'gcr.io/k8s-skaffold/skaffold:latest'
   dir: 'app-config'
   args: ['deploy', '-p', 'prod']
   env:
