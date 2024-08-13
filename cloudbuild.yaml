@@ -15,25 +15,39 @@ steps:
     gcloud deploy apply --file=target-test.yaml --region=asia-east1
     gcloud deploy apply --file=target-staging.yaml --region=asia-east1
     gcloud deploy apply --file=target-prod.yaml --region=asia-east1
-- name: 'gcr.io/k8s-skaffold/skaffold:latest'
-  entrypoint: 'skaffold'
-  dir: 'app-config'
-  args: ['deploy', '-p', 'test']
+- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+  entrypoint: 'gcloud'
+  args: 
+    - 'run'
+    - 'deploy'
+    - 'your-service-name'
+    - '--image'
+    - 'asia-east1-docker.pkg.dev/terraform-429505/my-registry/hello-js'
+    - '--region'
+    - 'asia-east1'
+    - '--platform'
+    - 'managed'
   env:
   - 'GOOGLE_CLOUD_PROJECT=terraform-429505'
+# - name: 'gcr.io/k8s-skaffold/skaffold:latest'
+#   entrypoint: 'skaffold'
+#   dir: 'app-config'
+#   args: ['deploy', '-p', 'test']
+#   env:
+#   - 'GOOGLE_CLOUD_PROJECT=terraform-429505'
 
-- name: 'gcr.io/k8s-skaffold/skaffold:latest'
-  entrypoint: 'skaffold'
-  dir: 'app-config'
-  args: ['deploy', '-p', 'staging']
-  env:
-  - 'GOOGLE_CLOUD_PROJECT=terraform-429505'
+# - name: 'gcr.io/k8s-skaffold/skaffold:latest'
+#   entrypoint: 'skaffold'
+#   dir: 'app-config'
+#   args: ['deploy', '-p', 'staging']
+#   env:
+#   - 'GOOGLE_CLOUD_PROJECT=terraform-429505'
 
-- name: 'gcr.io/k8s-skaffold/skaffold:latest'
-  entrypoint: 'skaffold'
-  dir: 'app-config'
-  args: ['deploy', '-p', 'prod']
-  env:
-  - 'GOOGLE_CLOUD_PROJECT=terraform-429505'
+# - name: 'gcr.io/k8s-skaffold/skaffold:latest'
+#   entrypoint: 'skaffold'
+#   dir: 'app-config'
+#   args: ['deploy', '-p', 'prod']
+#   env:
+#   - 'GOOGLE_CLOUD_PROJECT=terraform-429505'
 options:
   defaultLogsBucketBehavior: REGIONAL_USER_OWNED_BUCKET
