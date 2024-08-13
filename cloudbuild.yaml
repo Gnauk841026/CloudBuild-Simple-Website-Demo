@@ -3,12 +3,28 @@ steps:
   args: ['build', '-t', 'asia-east1-docker.pkg.dev/terraform-429505/my-registry/hello-js', '.']
 - name: 'gcr.io/cloud-builders/docker'
   args: ['push', 'asia-east1-docker.pkg.dev/terraform-429505/my-registry/hello-js']
+- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+  dir: 'clouddeploy-config'
+  args:
+  - bash
+  - -c
+  - |
+    gcloud deploy targets apply test-cloudrun --region=your-region --file=test-target.yaml
+    gcloud deploy targets apply staging-cloudrun --region=your-region --file=staging-target.yaml
+    gcloud deploy targets apply prod-cloudrun --region=your-region --file=prod-target.yaml
+    gcloud deploy delivery-pipelines apply hello-js --region=your-region --file=pipeline.yaml
+- name: 'gcr.io/cloud-builders/skaffold'
+  dir: 'deploy'
+  args: ['deploy', '-p', 'test']
+  env:
+  - 'GOOGLE_CLOUD_PROJECT=terraform-429505'
+- name: 'gcr.io/cloud-builders/skaffold'
+  dir: 'deploy'
+  args: ['deploy', '-p', 'staging']
+  env:
+  - 'GOOGLE_CLOUD_PROJECT=terraform-429505'
 - name: 'gcr.io/cloud-builders/skaffold'
   dir: 'deploy'
   args: ['deploy', '-p', 'prod']
   env:
   - 'GOOGLE_CLOUD_PROJECT=terraform-429505'
-images:
-- 'asia-east1-docker.pkg.dev/terraform-429505/my-registry/hello-js'
-options:
-  defaultLogsBucketBehavior: REGIONAL_USER_OWNED_BUCKET
