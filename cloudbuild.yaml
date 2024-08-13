@@ -1,9 +1,9 @@
 steps:
 - name: 'gcr.io/cloud-builders/docker'
-  dir: 'app2'
+  dir: 'app'
   args: ['build', '-t', 'asia-east1-docker.pkg.dev/terraform-429505/my-registry/hello-js', '.']
 - name: 'gcr.io/cloud-builders/docker'
-  dir: 'app2'
+  dir: 'app'
   args: ['push', 'asia-east1-docker.pkg.dev/terraform-429505/my-registry/hello-js']
 - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
   dir: 'clouddeploy-config'
