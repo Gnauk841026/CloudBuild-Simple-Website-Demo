@@ -1,14 +1,14 @@
 apiVersion: skaffold/v3
 kind: Config
 metadata:
-  name: hello-app
-build:
-  artifacts:
-    - image: hello-app
-      context: hello-app
-  googleCloudBuild:
-    projectId: terraform-429505
-    serviceAccount: projects/terraform-429505/serviceAccounts/cd-tut-run-build-sa@terraform-429505.iam.gserviceaccount.com
+  name: hello-js
+# build:
+#   artifacts:
+#     - image: hello-app
+#       context: hello-app
+#   googleCloudBuild:
+#     projectId: terraform-429505
+#     serviceAccount: projects/terraform-429505/serviceAccounts/cd-tut-run-build-sa@terraform-429505.iam.gserviceaccount.com
 deploy:
   cloudrun: {}
 profiles:
