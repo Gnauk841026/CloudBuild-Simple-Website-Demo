@@ -11,10 +11,10 @@ steps:
   - bash
   - -c
   - |
-    gcloud deploy targets create test-cloudrun --region=your-region --config=test-target.yaml
-    gcloud deploy targets create staging-cloudrun --region=your-region --config=staging-target.yaml
-    gcloud deploy targets create prod-cloudrun --region=your-region --config=prod-target.yaml
-    gcloud deploy delivery-pipelines create hello-js --region=your-region --config=pipeline.yaml
+    gcloud deploy apply --file=pipeline.yaml --region=asia-east1
+    gcloud deploy apply --file=test-target.yaml --region=asia-east1
+    gcloud deploy apply --file=staging-target.yaml --region=asia-east1
+    gcloud deploy apply --file=prod-target.yaml --region=asia-east1
 - name: 'gcr.io/cloud-builders/skaffold'
   dir: 'deploy'
   args: ['deploy', '-p', 'test']
