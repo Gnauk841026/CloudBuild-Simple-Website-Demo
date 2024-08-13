@@ -1,0 +1,13 @@
+apiVersion: deploy.cloud.google.com/v1beta1
+kind: DeliveryPipeline
+metadata:
+  name: hello-app
+description: Deployment pipeline for hello-app
+serialPipeline:
+  stages:
+    - targetId: test-cloudrun
+      profiles: [test]
+    - targetId: staging-cloudrun
+      profiles: [staging]
+    - targetId: prod-cloudrun
+      profiles: [prod]
