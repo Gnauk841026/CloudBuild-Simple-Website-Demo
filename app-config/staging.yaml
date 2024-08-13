@@ -1,0 +1,17 @@
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: hello-app-staging
+spec:
+  template:
+    metadata:
+      annotations:
+        autoscaling.knative.dev/maxScale: "1"
+    spec:
+      serviceAccountName: cd-tut-run-sa@${PROJECT_ID}.iam.gserviceaccount.com
+      containers:
+      - name: hello-app
+        image: hello-app
+        env:
+          - name: NAME
+            value: "Staging"
