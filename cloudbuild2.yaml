@@ -1,17 +1,17 @@
 steps:
 - name: 'gcr.io/cloud-builders/docker'
   dir: 'app2/frontend'
-  args: ['build', '-t', 'asia-east1-docker.pkg.dev/terraform-429505/my-registry/hello-php', '.']
+  args: ['build', '-t', 'asia-east1-docker.pkg.dev/terraform-429505/my-registry/hello-frontend', '.']
 - name: 'gcr.io/cloud-builders/docker'
   dir: 'app2/frontend'
-  args: ['push', 'asia-east1-docker.pkg.dev/terraform-429505/my-registry/hello-php']
+  args: ['push', 'asia-east1-docker.pkg.dev/terraform-429505/my-registry/hello-frontend']
 steps:
 - name: 'gcr.io/cloud-builders/docker'
   dir: 'app2/backend'
-  args: ['build', '-t', 'asia-east1-docker.pkg.dev/terraform-429505/my-registry/hello-php', '.']
+  args: ['build', '-t', 'asia-east1-docker.pkg.dev/terraform-429505/my-registry/hello-backend', '.']
 - name: 'gcr.io/cloud-builders/docker'
   dir: 'app2/backend'
-  args: ['push', 'asia-east1-docker.pkg.dev/terraform-429505/my-registry/hello-php']
+  args: ['push', 'asia-east1-docker.pkg.dev/terraform-429505/my-registry/hello-backend']
 - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
   dir: 'clouddeploy-config'
   args:
