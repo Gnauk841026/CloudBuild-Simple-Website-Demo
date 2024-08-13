@@ -25,6 +25,8 @@ steps:
   - '--delivery-pipeline=hello-js'
   - '--region=asia-east1'
   - '--annotations=commitId=${REVISION_ID}'
+  - '--source=.' 
+  - '--skaffold-file=./app-config/skaffold.yaml'
   - '--images=hello-js=asia-east1-docker.pkg.dev/terraform-429505/my-registry/hello-js:${SHORT_SHA}'
 
 # 部署到測試環境
