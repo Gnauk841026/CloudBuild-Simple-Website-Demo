@@ -3,7 +3,7 @@ const app = express();
 const port = process.env.PORT || 8080;
 
 app.get('/', (req, res) => {
-  res.send('Hello from Cloud Run! Test Alert');
+  res.send('Hello from Cloud Run! Test Alert 2');
 });
 
 app.listen(port, () => {
