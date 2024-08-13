@@ -4,9 +4,9 @@ metadata:
   name: staging-cloudrun
 description: Staging target
 run:
-  location: projects/${PROJECT_ID}/locations/${REGION}
+  location: projects/terraform-429505/locations/asia-east1
 executionConfigs:
 - usages:
   - RENDER
   - DEPLOY
-  serviceAccount: cd-tut-run-deploy-sa@${PROJECT_ID}.iam.gserviceaccount.com
+  serviceAccount: cd-tut-run-deploy-sa@terraform-429505.iam.gserviceaccount.com
