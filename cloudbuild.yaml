@@ -28,5 +28,5 @@ steps:
   args: ['deploy', '-p', 'prod']
   env:
   - 'GOOGLE_CLOUD_PROJECT=terraform-429505'
-  options:
+options:
   defaultLogsBucketBehavior: REGIONAL_USER_OWNED_BUCKET
