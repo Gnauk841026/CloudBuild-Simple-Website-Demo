@@ -1,9 +1,7 @@
 steps:
 - name: 'gcr.io/cloud-builders/docker'
-  dir: 'app'
   args: ['build', '-t', 'asia-east1-docker.pkg.dev/terraform-429505/my-registry/hello-js', '.']
 - name: 'gcr.io/cloud-builders/docker'
-  dir: 'app'
   args: ['push', 'asia-east1-docker.pkg.dev/terraform-429505/my-registry/hello-js']
 - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
   dir: 'clouddeploy-config'
@@ -11,10 +9,10 @@ steps:
   - bash
   - -c
   - |
-    gcloud deploy targets apply test-cloudrun --region=your-region --file=test-target.yaml
-    gcloud deploy targets apply staging-cloudrun --region=your-region --file=staging-target.yaml
-    gcloud deploy targets apply prod-cloudrun --region=your-region --file=prod-target.yaml
-    gcloud deploy delivery-pipelines apply hello-js --region=your-region --file=pipeline.yaml
+    gcloud deploy targets create test-cloudrun --region=your-region --config=test-target.yaml
+    gcloud deploy targets create staging-cloudrun --region=your-region --config=staging-target.yaml
+    gcloud deploy targets create prod-cloudrun --region=your-region --config=prod-target.yaml
+    gcloud deploy delivery-pipelines create hello-js --region=your-region --config=pipeline.yaml
 - name: 'gcr.io/cloud-builders/skaffold'
   dir: 'deploy'
   args: ['deploy', '-p', 'test']
