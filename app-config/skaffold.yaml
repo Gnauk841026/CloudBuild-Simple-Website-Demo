@@ -1,0 +1,26 @@
+apiVersion: skaffold/v3
+kind: Config
+metadata:
+  name: hello-app
+build:
+  artifacts:
+    - image: hello-app
+      context: hello-app
+  googleCloudBuild:
+    projectId: terraform-429505
+    serviceAccount: projects/terraform-429505/serviceAccounts/cd-tut-run-build-sa@terraform-429505.iam.gserviceaccount.com
+deploy:
+  cloudrun: {}
+profiles:
+  - name: test
+    manifests:
+      rawYaml:
+        - hello-app-test.yaml
+  - name: staging
+    manifests:
+      rawYaml:
+        - hello-app-staging.yaml
+  - name: prod
+    manifests:
+      rawYaml:
+        - hello-app-prod.yaml
