@@ -10,8 +10,7 @@ metadata:
 #     projectId: terraform-429505
 #     serviceAccount: projects/terraform-429505/serviceAccounts/cd-tut-run-build-sa@terraform-429505.iam.gserviceaccount.com
 deploy:
-  cloudrun: 
-  region: asia-east1
+  cloudrun: {}
 profiles:
   - name: test
     manifests:
