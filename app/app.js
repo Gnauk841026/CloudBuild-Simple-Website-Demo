@@ -12,7 +12,7 @@ app.get('/', (req, res) => {
       <title>Cloud Run Demo</title>
       <style>
         body {
-          font-size: 2em; /* 调整此值以改变文字大小 */
+          font-size: 4em; /* 调整此值以改变文字大小 */
           display: flex;
           justify-content: center;
           align-items: center;
