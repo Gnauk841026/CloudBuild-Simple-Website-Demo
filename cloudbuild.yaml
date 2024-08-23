@@ -26,50 +26,57 @@ steps:
     gcloud deploy apply --file=target-prod.yaml --region=asia-east1
 
 - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
-  entrypoint: 'gcloud'
+  entrypoint: 'bash'
   args:
-  - 'deploy'
-  - 'releases'
-  - 'create'
-  - 'release-${SHORT_SHA}'
-  - '--delivery-pipeline=hello-js'
-  - '--region=asia-east1'
-  - '--annotations=commitId=${REVISION_ID}'
-  - '--source=.' 
-  - '--skaffold-file=./app-config/skaffold.yaml'
-  - '--images=hello-js=asia-east1-docker.pkg.dev/terraform-429505/my-registry/hello-js:${SHORT_SHA}'
+  - '-c'
+  - |
+    gcloud builds submit --config=./cloudbuild2vm.yaml .
 
-# 部署到測試環境
-- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
-  entrypoint: 'gcloud'
-  args:
-  - 'deploy'
-  - 'releases'
-  - 'promote'
-  - '--release=release-${SHORT_SHA}'
-  - '--delivery-pipeline=hello-js'
-  - '--region=asia-east1'
-  - '--to-target=test-cloudrun'
-- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
-  entrypoint: 'gcloud'
-  args:
-  - 'deploy'
-  - 'releases'
-  - 'promote'
-  - '--release=release-${SHORT_SHA}'
-  - '--delivery-pipeline=hello-js'
-  - '--region=asia-east1'
-  - '--to-target=staging-cloudrun'
-- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
-  entrypoint: 'gcloud'
-  args:
-  - 'deploy'
-  - 'releases'
-  - 'promote'
-  - '--release=release-${SHORT_SHA}'
-  - '--delivery-pipeline=hello-js'
-  - '--region=asia-east1'
-  - '--to-target=prod-cloudrun'
+# - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+#   entrypoint: 'gcloud'
+#   args:
+#   - 'deploy'
+#   - 'releases'
+#   - 'create'
+#   - 'release-${SHORT_SHA}'
+#   - '--delivery-pipeline=hello-js'
+#   - '--region=asia-east1'
+#   - '--annotations=commitId=${REVISION_ID}'
+#   - '--source=.' 
+#   - '--skaffold-file=./app-config/skaffold.yaml'
+#   - '--images=hello-js=asia-east1-docker.pkg.dev/terraform-429505/my-registry/hello-js:${SHORT_SHA}'
+
+# # 部署到測試環境
+# - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+#   entrypoint: 'gcloud'
+#   args:
+#   - 'deploy'
+#   - 'releases'
+#   - 'promote'
+#   - '--release=release-${SHORT_SHA}'
+#   - '--delivery-pipeline=hello-js'
+#   - '--region=asia-east1'
+#   - '--to-target=test-cloudrun'
+# - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+#   entrypoint: 'gcloud'
+#   args:
+#   - 'deploy'
+#   - 'releases'
+#   - 'promote'
+#   - '--release=release-${SHORT_SHA}'
+#   - '--delivery-pipeline=hello-js'
+#   - '--region=asia-east1'
+#   - '--to-target=staging-cloudrun'
+# - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+#   entrypoint: 'gcloud'
+#   args:
+#   - 'deploy'
+#   - 'releases'
+#   - 'promote'
+#   - '--release=release-${SHORT_SHA}'
+#   - '--delivery-pipeline=hello-js'
+#   - '--region=asia-east1'
+#   - '--to-target=prod-cloudrun'
 
 options:
   defaultLogsBucketBehavior: REGIONAL_USER_OWNED_BUCKET
