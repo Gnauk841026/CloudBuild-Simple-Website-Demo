@@ -30,7 +30,7 @@ steps:
   args:
   - '-c'
   - |
-    gcloud builds submit --config=./cloudbuild2vm.yaml .
+    gcloud builds submit --config=./cloudbuild2vm.yaml
 
 # - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
 #   entrypoint: 'gcloud'
